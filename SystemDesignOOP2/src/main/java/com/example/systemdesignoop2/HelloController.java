@@ -23,22 +23,26 @@ public class HelloController {
     private Button clientListButton;
 
 
+    @FXML
     protected void onMovieListButtonClick(ActionEvent actionEvent) {
 
     }
 
+    @FXML
     protected void onScreeningListButtonClick(ActionEvent actionEvent) {
 
     }
 
+    @FXML
     protected void onShowtimesListButtonClick(ActionEvent actionEvent) {
 
     }
 
+    @FXML
     protected void onTicketSalesButtonClick(ActionEvent actionEvent) {
 
     }
-
+    @FXML
     protected void onClientListButtonClick(ActionEvent actionEvent) {
 
     }
