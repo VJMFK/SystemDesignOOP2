@@ -2,7 +2,13 @@ package com.example.systemdesignoop2;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginView {
 
@@ -55,11 +61,19 @@ public class LoginView {
     }
 
     @FXML
-    protected void onSignUpButtonClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Sign Up");
-        alert.setHeaderText("Do you want to create a new account?");
-        alert.showAndWait();
+    protected void onSignUpButtonClick(ActionEvent event) throws IOException {
+        // Load the new view FXML
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("signup-view.fxml"));
+        Parent newView = fxmlLoader.load();
+
+        // Create a new stage (window) to display the new scene
+        Stage stage = new Stage();
+        Scene scene = new Scene(newView, 400, 300);  // You can adjust the size
+        stage.setScene(scene);
+        stage.setTitle("Sign Up");
+
+        // Show the new stage
+        stage.show();
     }
 
     @FXML
@@ -80,3 +94,4 @@ public class LoginView {
         }
     }
 }
+
