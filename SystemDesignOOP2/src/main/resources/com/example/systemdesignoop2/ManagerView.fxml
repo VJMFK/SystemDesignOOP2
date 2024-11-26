@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="542.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.systemdesignoop2.ManagerViewApplication">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="36.0" layoutY="48.0" prefHeight="200.0" prefWidth="139.0">
+         <children>
+            <Label fx:id="movieLabel" text="Movies" />
+            <ListView fx:id="movieList" prefHeight="183.0" prefWidth="134.0" />
+         </children>
+      </VBox>
+      <Label fx:id="managerViewLabel" layoutX="14.0" layoutY="14.0" text="Manager View" />
+      <Button fx:id="addMovieButton" layoutX="86.0" layoutY="330.0" mnemonicParsing="false" text="Add" />
+      <TextField fx:id="addMovieTitleTextField" layoutX="31.0" layoutY="259.0" promptText="Movie Title" />
+      <TextField fx:id="addMovieGenreTextField" layoutX="30.0" layoutY="294.0" promptText="Movie Genre" />
+      <TextField layoutX="31.0" layoutY="367.0" />
+      <TextField layoutX="31.0" layoutY="405.0" />
+      <Button layoutX="78.0" layoutY="442.0" mnemonicParsing="false" text="Modify" />
+      <Button layoutX="79.0" layoutY="478.0" mnemonicParsing="false" text="Delete" />
+      <VBox alignment="TOP_CENTER" layoutX="222.0" layoutY="48.0" prefHeight="200.0" prefWidth="139.0">
+         <children>
+            <Label fx:id="screeningRoomLabel" text="Screening Rooms" />
+            <ListView fx:id="screeningRoomList" prefHeight="183.0" prefWidth="134.0" />
+         </children>
+      </VBox>
+      <Button layoutX="272.0" layoutY="330.0" mnemonicParsing="false" text="Add" />
+      <TextField layoutX="217.0" layoutY="259.0" promptText="Screenroom Name" />
+      <TextField layoutX="216.0" layoutY="294.0" promptText="Screenroom Location" />
+      <TextField layoutX="217.0" layoutY="367.0" />
+      <TextField layoutX="217.0" layoutY="405.0" />
+      <Button layoutX="264.0" layoutY="442.0" mnemonicParsing="false" text="Modify" />
+      <Button layoutX="265.0" layoutY="478.0" mnemonicParsing="false" text="Delete" />
+      <VBox alignment="TOP_CENTER" layoutX="418.0" layoutY="48.0" prefHeight="200.0" prefWidth="139.0">
+         <children>
+            <Label fx:id="showtimeLabel" text="Showtimes" />
+            <ListView fx:id="showtimeList" prefHeight="183.0" prefWidth="134.0" />
+         </children>
+      </VBox>
+      <Button layoutX="468.0" layoutY="330.0" mnemonicParsing="false" text="Add" />
+      <TextField layoutX="413.0" layoutY="259.0" promptText="Movie Title" />
+      <TextField layoutX="412.0" layoutY="294.0" promptText="Showtime" />
+      <TextField layoutX="413.0" layoutY="367.0" />
+      <TextField layoutX="413.0" layoutY="405.0" />
+      <Button layoutX="460.0" layoutY="442.0" mnemonicParsing="false" text="Modify" />
+      <Button layoutX="461.0" layoutY="478.0" mnemonicParsing="false" text="Delete" />
+      <VBox alignment="TOP_CENTER" layoutX="596.0" layoutY="48.0" prefHeight="200.0" prefWidth="139.0">
+         <children>
+            <Label fx:id="clientListLabel" text="Client List" />
+            <ListView fx:id="clientList" prefHeight="183.0" prefWidth="134.0" />
+         </children>
+      </VBox>
+      <Button layoutX="618.0" layoutY="294.0" mnemonicParsing="false" text="Tickets (Movie)" />
+      <Button layoutX="608.0" layoutY="330.0" mnemonicParsing="false" text="Tickets (Showtime)" />
+   </children>
+</AnchorPane>
