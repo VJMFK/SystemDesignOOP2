@@ -86,11 +86,10 @@ public class LoginView {
             alert.setTitle("Error");
             alert.setHeaderText("Username and Password are required!");
             alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login");
-            alert.setHeaderText("Welcome, " + username + "!");
-            alert.showAndWait();
+        }
+        if (managerRadioButton.isSelected()) {
+
+
         }
     }
 }
