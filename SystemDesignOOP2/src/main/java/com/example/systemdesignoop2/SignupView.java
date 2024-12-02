@@ -31,5 +31,9 @@ public class SignupView {
         alert.setTitle("New Password");
         alert.showAndWait();
     }
+    @FXML
+    protected void onSaveButtonClick(ActionEvent event) {
+
+    }
 
 }

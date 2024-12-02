@@ -33,7 +33,7 @@
                   <Label fx:id="newUser" text="Create a username: " />
                   <Label fx:id="newPassword" text="Create a password: " GridPane.rowIndex="2" />
                   <TextField fx:id="newUsernameTextField" onAction="#onNewUsernameTextFieldClick" promptText="enter username" GridPane.columnIndex="1" />
-                  <TextField fx:id="newPasswordTextField" onAction="#onNewPasswordTextFieldCLick" promptText="enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="newPasswordTextField" onAction="#onNewPasswordTextFieldClick" promptText="enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Button fx:id="saveButton" layoutX="274.0" layoutY="284.0" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
