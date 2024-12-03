@@ -15,7 +15,7 @@ public class ManagerViewApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ManagerView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientViewApplication.class.getResource("ManagerView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Manager View");
         stage.setScene(scene);
