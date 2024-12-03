@@ -94,9 +94,8 @@ public class LoginView {
         // If both fields are non-empty, proceed to load the manager view
         try {
             // Load the manager view FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/com.example.systemdesignoop2/ManagerView.fxml"));
-            StackPane root = loader.load();  // You can replace StackPane with the root element of your manager view
-            Scene managerScene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerView.fxml"));
+            Scene managerScene = new Scene(loader.load());
 
             // Set the new scene on the current stage (window)
             Stage currentStage = (Stage) usernameTextField.getScene().getWindow();
