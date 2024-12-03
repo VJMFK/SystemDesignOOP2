@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -81,16 +82,35 @@ public class LoginView {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
 
+        // Check if the username or password is empty
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Username and Password are required!");
             alert.showAndWait();
+            return; // Exit the method if fields are empty
         }
-        if (managerRadioButton.isSelected()) {
 
+        // If both fields are non-empty, proceed to load the manager view
+        try {
+            // Load the manager view FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerView.fxml"));
+            Scene managerScene = new Scene(loader.load());
 
+            // Set the new scene on the current stage (window)
+            Stage currentStage = (Stage) usernameTextField.getScene().getWindow();
+            currentStage.setScene(managerScene);
+            currentStage.setTitle("Manager View");
+            currentStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load Manager View!");
+            alert.showAndWait();
         }
     }
 }
+
 
