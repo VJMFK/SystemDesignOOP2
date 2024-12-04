@@ -36,22 +36,7 @@ public class LoginView {
     @FXML
     public void initialize() {
         // Initialize ToggleGroup for radio buttons
-        // Declare ToggleGroup
-        ToggleGroup userToggleGroup = new ToggleGroup();
-        clientRadioButton.setToggleGroup(userToggleGroup);
-        managerRadioButton.setToggleGroup(userToggleGroup);
     }
-
-    @FXML
-    public void onClientRadioButtonClick(ActionEvent event) {
-        // No need to manually select; ToggleGroup will handle it
-    }
-
-    @FXML
-    public void onManagerRadioButtonClick(ActionEvent event) {
-        // No need to manually select; ToggleGroup will handle it
-    }
-
     @FXML
     protected void onUsernameTextFieldClick(ActionEvent event) {
         usernameTextField.setText("");
@@ -85,8 +70,8 @@ public class LoginView {
 
         // Check if the username or password is empty
         if (username.isEmpty() || password.isEmpty()) {
-           AlertHelper.showErrorAlert("Error", "Login requirements",
-                   "Username and Password are required");
+            AlertHelper.showErrorAlert("Error", "Login requirements",
+                    "Username and Password are required");
             return; // Exit the method if fields are empty
         }
 
@@ -96,14 +81,20 @@ public class LoginView {
             loadView("ManagerView.fxml", "Manager View");
 
         } else {
-            // If not a manager, check client credentials from the clientlist.txt file
-            if (checkClientCredentials(username, password)) {
+            // Check if it's the hardcoded client login
+            if (username.equals("client") && password.equals("67890")) {
                 // If client credentials match, load ClientView.fxml for the client
-                loadView("ClientView.fxml", "Client View");
+                loadView("client-view.fxml", "Client View");
             } else {
-                // If neither the manager nor the client credentials match, show an error
-               AlertHelper.showErrorAlert("Error", "Misspelling",
-                       "username and password are incorrect");
+                // If not the hardcoded client, check client credentials from the clientlist.txt file
+                if (checkClientCredentials(username, password)) {
+                    // If client credentials match, load ClientView.fxml for the client
+                    loadView("client-view.fxml", "Client View");
+                } else {
+                    // If neither the manager nor the client credentials match, show an error
+                    AlertHelper.showErrorAlert("Error", "Misspelling",
+                            "Username and password are incorrect");
+                }
             }
         }
     }
@@ -116,7 +107,8 @@ public class LoginView {
 
         private boolean checkClientCredentials (String username, String password){
             // Get the file from the resources folder
-            InputStream inputStream = getClass().getResourceAsStream("src/main/resources/TextFiles/Client List.txt");
+            InputStream inputStream = getClass().getResourceAsStream("C:\\Users\\adm1\\OneDrive - Champlain Regional College\\Fall2024\\OOP2" +
+                    "\\Project\\SystemDesignOOP2\\src\\main\\resources\\TextFiles\\Client List");
 
             // Check if the file exists
             if (inputStream == null) {

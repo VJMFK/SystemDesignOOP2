@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
+
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -16,9 +16,6 @@
         <Button fx:id="loginButton" onAction="#onLoginButtonClick" layoutX="100" layoutY="150" text="Login" />
         <!-- Sign Up Button -->
         <Button fx:id="signUpButton" onAction="#onSignUpButtonClick" layoutX="200" layoutY="150" text="Sign Up" />
-        <!-- Radio Buttons for User Type -->
-        <RadioButton fx:id="clientRadioButton" onAction="#onClientRadioButtonClick" layoutX="100" layoutY="200" text="Client" />
-        <RadioButton fx:id="managerRadioButton" onAction="#onManagerRadioButtonClick" layoutX="200" layoutY="200" text="Manager" />
         <!-- Labels -->
         <Label fx:id="usernameLabel" layoutX="100" layoutY="30" text="Username" />
         <Label fx:id="passwordLabel" layoutX="100" layoutY="80" text="Password" />
