@@ -17,7 +17,8 @@ import java.io.InputStreamReader;
  * <p></p>
  * Extends the AlertHelper class to help with error handling using
  * alerts.
- *
+ *<p>
+ * (Originally Created by Joey Knowles but may be adapted by Mavryk Martin if needed.)
  */
 public class ClientList extends AlertHelper {
 
@@ -58,11 +59,11 @@ public class ClientList extends AlertHelper {
             return;
         }
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = reader.readLine()) != null) { // Read the file line by line until no lines are available.
-                if (!line.trim().isEmpty()) { // Check if the line is not empty or whitespace only.
-                    aClientList.add(line.trim()); // Add the trimmed line to the clientList.
+        try (BufferedReader aReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String aLine;
+            while ((aLine = aReader.readLine()) != null) { // Read the file line by line until no lines are available.
+                if (!aLine.trim().isEmpty()) { // Check if the line is not empty or whitespace only.
+                    aClientList.add(aLine.trim()); // Add the trimmed line to the clientList.
                 }
             }
 
