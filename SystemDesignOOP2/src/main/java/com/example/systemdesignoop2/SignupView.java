@@ -14,28 +14,53 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Controller class for handling user actions and saving form data.
+ * Controller class responsible for handling user actions in the sign-up view.
+ * It validates the input and writes the new user's credentials to a file.
  */
 public class SignupView {
 
+    /**
+     * Button that triggers saving the new user's credentials.
+     */
     @FXML
     private Button saveButton;
+
+    /**
+     * Text field where the user can input their new username.
+     */
     @FXML
     private TextField newUsernameTextField;
+
+    /**
+     * Text field where the user can input their new password.
+     */
     @FXML
     private TextField newPasswordTextField;
+
+    /**
+     * Label for displaying the new username field.
+     */
     @FXML
     private Label newUsername;
+
+    /**
+     * Label for displaying the new password field.
+     */
     @FXML
     private Label newPassword;
 
     /**
-     * Method to handle the save button click event.
-     * It validates the input and writes the data to a file in the TextFiles directory.
+     * Handles the action when the save button is clicked.
+     * It validates the input and writes the new user's credentials to the client list file.
+     *
+     * If either field is empty, an error alert is shown. If the data is valid,
+     * the credentials are appended to the client list file, and a success alert is shown.
+     *
+     * @param event the action event triggered when the save button is clicked
      */
     @FXML
     protected void onSaveButtonClick(ActionEvent event) {
-        // Get the username and password values from the TextFields
+        // Get the username and password values from the text fields
         String username = newUsernameTextField.getText();
         String password = newPasswordTextField.getText();
 
@@ -67,7 +92,7 @@ public class SignupView {
         } catch (IOException e) {
             // Show an error alert if something goes wrong while writing to the file
             AlertHelper.showErrorAlert("Error", "File error",
-                    "error occurred when adding user. User not added.");
+                    "Error occurred when adding user. User not added.");
         }
     }
 }

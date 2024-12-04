@@ -12,42 +12,100 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Controller class responsible for handling login functionality and client sign-up.
+ * It validates the login credentials, including checking them against two client list files, and loads different views based on user roles.
+ */
 public class LoginView {
 
+    /**
+     * Text field to enter the username.
+     */
     @FXML
     private TextField usernameTextField;
+
+    /**
+     * Text field to enter the password.
+     */
     @FXML
     private TextField passwordTextField;
+
+    /**
+     * Button for submitting the login form.
+     */
     @FXML
     private Button loginButton;
+
+    /**
+     * Button to navigate to the sign-up page.
+     */
     @FXML
     private Button signUpButton;
+
+    /**
+     * Radio button for selecting client user type.
+     */
     @FXML
     private RadioButton clientRadioButton;
+
+    /**
+     * Radio button for selecting manager user type.
+     */
     @FXML
     private RadioButton managerRadioButton;
+
+    /**
+     * Label for the username field.
+     */
     @FXML
     private Label usernameLabel;
+
+    /**
+     * Label for the password field.
+     */
     @FXML
     private Label passwordLabel;
+
+    /**
+     * Label for the sign-up option.
+     */
     @FXML
     private Label signUpLabel;
 
+    /**
+     * Initializes the view and its components, including the radio buttons group.
+     */
     @FXML
     public void initialize() {
-        // Initialize ToggleGroup for radio buttons
+        // Initialize ToggleGroup for radio buttons (this could be done in the FXML file too)
     }
 
+    /**
+     * Clears the username text field when clicked.
+     *
+     * @param event the action event triggered by the click
+     */
     @FXML
     protected void onUsernameTextFieldClick(ActionEvent event) {
         usernameTextField.setText("");
     }
 
+    /**
+     * Clears the password text field when clicked.
+     *
+     * @param event the action event triggered by the click
+     */
     @FXML
     protected void onPasswordTextFieldClick(ActionEvent event) {
         passwordTextField.setText("");
     }
 
+    /**
+     * Opens the sign-up page when the sign-up button is clicked.
+     *
+     * @param event the action event triggered by the click
+     * @throws IOException if the FXML file cannot be loaded
+     */
     @FXML
     protected void onSignUpButtonClick(ActionEvent event) throws IOException {
         // Load the new view FXML
@@ -64,6 +122,12 @@ public class LoginView {
         stage.show();
     }
 
+    /**
+     * Handles the login process, checks the entered credentials, and navigates based on the user type (manager or client).
+     * If the credentials are invalid, an error alert is shown.
+     *
+     * @param event the action event triggered by the click
+     */
     @FXML
     protected void onLoginButtonClick(ActionEvent event) {
         String username = usernameTextField.getText();
@@ -102,6 +166,7 @@ public class LoginView {
 
     /**
      * Checks the provided username and password against the entries in both client list files.
+     *
      * @param username the entered username
      * @param password the entered password
      * @return true if the credentials match any entry in the files, false otherwise
@@ -118,6 +183,7 @@ public class LoginView {
 
     /**
      * Helper method to check credentials in a given file.
+     *
      * @param filePath the path to the client list file
      * @param username the entered username
      * @param password the entered password
@@ -147,6 +213,12 @@ public class LoginView {
         return false;
     }
 
+    /**
+     * Loads a new view based on the provided FXML file and title.
+     *
+     * @param fxmlFile the FXML file to load
+     * @param title    the title of the window
+     */
     private void loadView(String fxmlFile, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
