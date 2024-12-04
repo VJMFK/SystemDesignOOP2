@@ -26,7 +26,7 @@ public class AlertHelper {
         // Customize the alert size.
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setPrefWidth(300); // Set preferred width.
-        dialogPane.setPrefHeight(150); // Set preferred height.
+        dialogPane.setPrefHeight(250); // Set preferred height.
 
         // Shows the alert and waits for the user to close it.
         alert.showAndWait();
@@ -48,7 +48,7 @@ public class AlertHelper {
         // Customize the alert size.
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setPrefWidth(300); // Set preferred width.
-        dialogPane.setPrefHeight(150); // Set preferred height.
+        dialogPane.setPrefHeight(250); // Set preferred height.
 
         // Shows the alert and waits for the user to close it.
         alert.showAndWait();
@@ -70,7 +70,7 @@ public class AlertHelper {
         // Customize the alert size.
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setPrefWidth(300); // Set preferred width.
-        dialogPane.setPrefHeight(150); // Set preferred height.
+        dialogPane.setPrefHeight(250); // Set preferred height.
 
         // Shows the alert and waits for the user to close it.
         alert.showAndWait();
@@ -93,7 +93,7 @@ public class AlertHelper {
         // Customize the alert size.
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setPrefWidth(300); // Set preferred width.
-        dialogPane.setPrefHeight(150); // Set preferred height.
+        dialogPane.setPrefHeight(250); // Set preferred height.
 
         // Shows the alert and waits for the user to close it.
         alert.showAndWait();

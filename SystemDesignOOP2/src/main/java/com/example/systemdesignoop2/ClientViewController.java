@@ -8,8 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * This class manages the loading and displaying of showtimes,
@@ -114,9 +118,88 @@ public class ClientViewController extends AlertHelper {
         if (selectedShowtime == null) {
             showErrorAlert("No Showtime Selected", null, "Please select a showtime to purchase a ticket.");
         } else {
+            // Generate a unique ticket ID
+            int ticketID = generateUniqueTicketID();
+
+            // Get the current date and time for the ticket
+            LocalDateTime now = LocalDateTime.now(); // Format will be like (2024-12-03T20:36:50)
+
+            // Will have the desired format for displaying the date and time.
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a"); // Example: 03-Dec-2024 8:36 PM
+
+            // Formats the current date and time into the specified pattern.
+            String purchaseTime = now.format(formatter);
+
+
             // Display an alert with the purchased showtime
-            showInfoAlert("Ticket Purchased", null, "You have purchased a ticket for: " + selectedShowtime);
+            showInfoAlert(
+                    "Ticket Purchased",
+                    null,
+                    "You have purchased a ticket for: " + selectedShowtime + "\n" + "\n" +
+                    "Ticket ID: " + ticketID + "\n" + "\n"
+                    + "Purchase Date/Time: " + "\n" + purchaseTime
+            );
+        }
+    }
+
+    private int generateUniqueTicketID() {
+        Set<Integer> existingIDs = loadExistingTicketIDs();
+        int newTicketID;
+        Random random = new Random();
+
+        // Continue generating new IDs until a unique one is found
+        do {
+            newTicketID = 1000 + random.nextInt(9000); // Generate a random 4-digit number
+        } while (existingIDs.contains(newTicketID)); // Check if the generated ID already exists
+
+        // After finding a unique ID, store it in the file for future reference
+        storeTicketID(newTicketID);
+
+        return newTicketID;
+    }
+
+    /**
+     * Load all existing ticket IDs from the TicketIDs.txt file.
+     */
+    private Set<Integer> loadExistingTicketIDs() {
+        Set<Integer> existingIDs = new HashSet<>();
+
+        // File path to the TicketIDs.txt in the data folder
+        File file = new File("data/TicketIDs");
+        System.out.println("File exists: " + file.exists());
+        System.out.println("Absolute path: " + file.getAbsolutePath());
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    existingIDs.add(Integer.parseInt(line.trim())); // Store IDs as integers
+                } catch (NumberFormatException e) {
+                    // Handle invalid IDs (skip them)
+                    continue;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading ticket IDs from file: " + e.getMessage());
         }
 
+        return existingIDs;
     }
+
+    /**
+     * Store the generated ticket ID into a text file in the data folder.
+     */
+    private void storeTicketID(int ticketID) {
+        // File path to the TicketIDs.txt in the data folder
+        File file = new File("data/TicketIDs");
+        System.out.println("File exists: " + file.exists());
+        System.out.println("Absolute path: " + file.getAbsolutePath());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write(ticketID + "\n"); // Append the new ID to the file
+        } catch (IOException e) {
+            System.out.println("Error writing ticket ID to file: " + e.getMessage());
+        }
+    }
+
 }

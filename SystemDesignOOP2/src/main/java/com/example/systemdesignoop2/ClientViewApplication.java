@@ -20,6 +20,9 @@ public class ClientViewApplication extends Application {
         stage.setTitle("Client Showtimes");
         stage.setScene(scene);
         stage.show();
+
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
+
     }
 
     public static void main(String[] args) {
