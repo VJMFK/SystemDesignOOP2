@@ -54,7 +54,7 @@ public class SignupView {
 
         // Get the path for the client list file inside the TextFiles folder
         File clientListFile = new File("C:\\Users\\adm1\\OneDrive - Champlain Regional College\\Fall2024\\OOP2\\Project\\SystemDesignOOP2" +
-                "\\src\\main\\resources\\TextFiles\\Client List");
+                "\\src\\main\\resources\\TextFiles\\ClientList.txt");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(clientListFile, true))) {
             // Append the new user entry to the file

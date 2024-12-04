@@ -37,6 +37,7 @@ public class LoginView {
     public void initialize() {
         // Initialize ToggleGroup for radio buttons
     }
+
     @FXML
     protected void onUsernameTextFieldClick(ActionEvent event) {
         usernameTextField.setText("");
@@ -86,7 +87,7 @@ public class LoginView {
                 // If client credentials match, load ClientView.fxml for the client
                 loadView("client-view.fxml", "Client View");
             } else {
-                // If not the hardcoded client, check client credentials from the clientlist.txt file
+                // Check client credentials from both old and new client list files
                 if (checkClientCredentials(username, password)) {
                     // If client credentials match, load ClientView.fxml for the client
                     loadView("client-view.fxml", "Client View");
@@ -98,51 +99,55 @@ public class LoginView {
             }
         }
     }
+
     /**
-     * Checks the provided username and password against the entries in the clientlist.txt file.
+     * Checks the provided username and password against the entries in both client list files.
      * @param username the entered username
      * @param password the entered password
-     * @return true if the credentials match any entry in the file, false otherwise
+     * @return true if the credentials match any entry in the files, false otherwise
      */
-
-        private boolean checkClientCredentials (String username, String password){
-            // Get the file from the resources folder
-            InputStream inputStream = getClass().getResourceAsStream("C:\\Users\\adm1\\OneDrive - Champlain Regional College\\Fall2024\\OOP2" +
-                    "\\Project\\SystemDesignOOP2\\src\\main\\resources\\TextFiles\\Client List");
-
-            // Check if the file exists
-            if (inputStream == null) {
-                AlertHelper.showErrorAlert("Error", "File not found",
-                        "file 'Client List' was not found");
-                return false;
-            }
-
-            // Read the file line by line using a Scanner
-            try (Scanner scanner = new Scanner(inputStream)) {
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine().trim();
-
-                    // Remove the period at the end of the line and split by space
-                    if (line.endsWith(".")) {
-                        line = line.substring(0, line.length() - 1); // Remove the period
-                    }
-
-                    String[] credentials = line.split(" "); // Split into username and password
-                    if (credentials.length == 2 && credentials[0].equals(username) && credentials[1].equals(password)) {
-                        return true; // If the username and password match
-                    }
-                }
-            } catch (Exception e) {  // Catch any exceptions related to file reading here
-                e.printStackTrace();
-               AlertHelper.showErrorAlert("Error", "reading problems",
-                       "error occurred when reading the file");
-            }
-
-            // If no match is found, return false
-            return false;
+    private boolean checkClientCredentials(String username, String password) {
+        // Check the old client list file
+        if (checkClientInFile("src/main/resources/TextFiles/Client List", username, password)) {
+            return true; // If found in the old client list
         }
 
-        private void loadView(String fxmlFile, String title) {
+        // Check the new client list file
+        return checkClientInFile("src/main/resources/TextFiles/ClientList.txt", username, password);
+    }
+
+    /**
+     * Helper method to check credentials in a given file.
+     * @param filePath the path to the client list file
+     * @param username the entered username
+     * @param password the entered password
+     * @return true if credentials match, false otherwise
+     */
+    private boolean checkClientInFile(String filePath, String username, String password) {
+        // Read the file line by line using a Scanner
+        try (Scanner scanner = new Scanner(new File(filePath))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+
+                // Remove the period at the end of the line and split by space
+                if (line.endsWith(".")) {
+                    line = line.substring(0, line.length() - 1); // Remove the period
+                }
+
+                String[] credentials = line.split(" "); // Split into username and password
+                if (credentials.length == 2 && credentials[0].equals(username) && credentials[1].equals(password)) {
+                    return true; // If the username and password match
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            AlertHelper.showErrorAlert("Error", "File not found",
+                    "Error occurred while reading file: " + filePath);
+        }
+        return false;
+    }
+
+    private void loadView(String fxmlFile, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Scene scene = new Scene(loader.load());
@@ -152,9 +157,7 @@ public class LoginView {
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-           AlertHelper.showErrorAlert("Error", "Failed to load view", "failed to load the view");
+            AlertHelper.showErrorAlert("Error", "Failed to load view", "Failed to load the view");
         }
     }
 }
-
-
