@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 
 /**
  * The ClientList class is in charge of managing a list of clients by
- * loading them from a file (Client List) and providing methods to interact
+ * loading them from a file (Manager Client List) and providing methods to interact
  * with the list (Getters, Setters, ReadFiles/InputStreams).
  * <p></p>
  * Extends the AlertHelper class to help with error handling using
@@ -25,7 +25,7 @@ public class ClientList extends AlertHelper {
     /**
      * Path to the client list file.
      */
-    private static final String aCLIENT_FILE_NAME = "src/main/java/TextFiles/Client List";
+    private static final String aCLIENT_FILE_NAME = "SystemDesignOOP2/SystemDesignOOP2/ManagerTextFiles/Manager Client List";
 
     /**
      * An observable list that will hold the clients.
@@ -40,7 +40,7 @@ public class ClientList extends AlertHelper {
     }
 
     /**
-     * Loads clients from a file (Client List) into the client list.
+     * Loads clients from a file (Manager Client List) into the client list.
      * <p>
      * Reads the file line by line, adding each non-empty line to the
      * clientList. If the file is not found or cannot be read, an error
