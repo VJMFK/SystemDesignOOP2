@@ -27,19 +27,19 @@ public class ClientViewController extends AlertHelper {
      * ListView for displaying the showtimes.
      */
     @FXML
-    private ListView<String> showtimeList;
+    private ListView<String> aShowtimeList;
 
     /**
      * Button for purchasing a ticket for the chosen showtime.
      */
     @FXML
-    private Button purchaseTicketButton;
+    private Button aPurchaseTicketButton;
 
     /**
      * Label for the naming the section.
      */
     @FXML
-    private Label showtimeLabel;
+    private Label aShowtimeLabel;
 
     /**
      * Observable List to store showtimes.
@@ -47,7 +47,7 @@ public class ClientViewController extends AlertHelper {
      * ObservableList is used to automatically update the ListView when
      * data changes.
      */
-    private ObservableList<String> showtimes;
+    private ObservableList<String> aShowtimes;
 
     /**
      * Path to the Showtimes file, located in resources folder.
@@ -62,13 +62,13 @@ public class ClientViewController extends AlertHelper {
     @FXML
     public void initialize() {
         // Creates a list that will automatically update the ListView.
-        showtimes = FXCollections.observableArrayList();
+        aShowtimes = FXCollections.observableArrayList();
 
         // Load showtimes from the file.
         loadShowtimesFromFile();
 
         // Populate the ListView with the showtimes.
-        showtimeList.setItems(showtimes);
+        aShowtimeList.setItems(aShowtimes);
     }
 
     /**
@@ -81,23 +81,25 @@ public class ClientViewController extends AlertHelper {
      */
     private void loadShowtimesFromFile() {
         // Used to read the specified file.
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+        try (BufferedReader aReader = new BufferedReader(new InputStreamReader(
                 // the getClass().getResourceAsStream(SHOWTIMES_FILE_PATH) method locates the file in the resources' folder.
                 getClass().getResourceAsStream(SHOWTIMES_FILE_PATH)))) {
 
-            String line;
+            String aLine; // Variable to hold each line read from the file.
             // Read the file line by line.
-            while ((line = reader.readLine()) != null) {
+            while ((aLine = aReader.readLine()) != null) {
                 // Check if the line is not empty or just whitespace, then add it to the showtimes list.
-                if (!line.trim().isEmpty()) {
-                    showtimes.add(line.trim());
+                if (!aLine.trim().isEmpty()) {
+                    aShowtimes.add(aLine.trim());
                 }
             }
 
-            if (showtimes.isEmpty()) {
+            // If no showtimes were loaded, display a warning alert.
+            if (aShowtimes.isEmpty()) {
                 showWarningAlert("No Showtimes Found", null, "The showtimes file is empty or contains no valid data.");
             }
         } catch (Exception e) {
+            // Display an error alert if there was an issue reading the file.
             showErrorAlert("File Read Error", null,
                     "An error occurred while reading the showtimes file:\n\n" + e.getMessage());
         }
@@ -106,74 +108,98 @@ public class ClientViewController extends AlertHelper {
     /**
      * Handles the event when the "Purchase Ticket" button is clicked.
      * <p></p>
-     * Displays an alert showing the selected showtime.
-     * If no showtime is selected, an error alert is displayed.
+     * If a showtime is selected, a unique ticket ID is generated, and
+     * displays an alert showing the ticket details.
+     * If no showtime is selected, it displays an error alert.
      */
     @FXML
     protected void onPurchaseTicketButtonClick() {
         // Get the selected showtime from the ListView
-        String selectedShowtime = showtimeList.getSelectionModel().getSelectedItem();
+        String pSelectedShowtime = aShowtimeList.getSelectionModel().getSelectedItem();
 
         // Check if a showtime is selected
-        if (selectedShowtime == null) {
+        if (pSelectedShowtime == null) {
             showErrorAlert("No Showtime Selected", null, "Please select a showtime to purchase a ticket.");
         } else {
             // Generate a unique ticket ID
-            int ticketID = generateUniqueTicketID();
+            int aTicketID = generateUniqueTicketID();
 
             // Get the current date and time for the ticket
-            LocalDateTime now = LocalDateTime.now(); // Format will be like (2024-12-03T20:36:50)
+            LocalDateTime aNow = LocalDateTime.now(); // Format will be like (2024-12-03T20:36:50)
 
             // Will have the desired format for displaying the date and time.
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a"); // Example: 03-Dec-2024 8:36 PM
+            DateTimeFormatter aFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a"); // Example: 03-Dec-2024 8:36 PM
 
             // Formats the current date and time into the specified pattern.
-            String purchaseTime = now.format(formatter);
+            String aPurchaseTime = aNow.format(aFormatter);
 
 
             // Display an alert with the purchased showtime
             showInfoAlert(
                     "Ticket Purchased",
                     null,
-                    "You have purchased a ticket for: " + selectedShowtime + "\n" + "\n" +
-                    "Ticket ID: " + ticketID + "\n" + "\n"
-                    + "Purchase Date/Time: " + "\n" + purchaseTime
+                    "You have purchased a ticket for: " + pSelectedShowtime + "\n" + "\n" +
+                    "Ticket ID: " + aTicketID + "\n" + "\n"
+                    + "Purchase Date/Time: " + "\n" + aPurchaseTime
             );
         }
     }
 
+    /**
+     * Generates a unique 4-digit ticket ID.
+     * <p></p>
+     * This method ensures that the generated ticket ID does not already exist
+     * within the TicketIDs file.
+     *
+     * @return A unique 4-digit ticket ID (Int)
+     */
     private int generateUniqueTicketID() {
-        Set<Integer> existingIDs = loadExistingTicketIDs();
-        int newTicketID;
-        Random random = new Random();
+        // Load all existing ticket IDs from the file.
+        // Set<Integer> stores all the previously generated ticket IDs, ensuring that a new number cannot be any of the previously stored ones.
+        Set<Integer> aExistingIDs = loadExistingTicketIDs();
 
-        // Continue generating new IDs until a unique one is found
+        int aNewTicketID; // Variable to store the newly generated ticket ID.
+        Random aRandom = new Random();
+
+        // Continue generating new IDs until a unique one is found.
         do {
-            newTicketID = 1000 + random.nextInt(9000); // Generate a random 4-digit number
-        } while (existingIDs.contains(newTicketID)); // Check if the generated ID already exists
+            // Generate a random 4-digit number between 1000-9999 (Because original range was 0-8999, 1000 shifts range up by 1000)
+            aNewTicketID = 1000 + aRandom.nextInt(9000);
+        } while (aExistingIDs.contains(aNewTicketID)); // Check if the generated ID already exists
 
         // After finding a unique ID, store it in the file for future reference
-        storeTicketID(newTicketID);
+        storeTicketID(aNewTicketID);
 
-        return newTicketID;
+        return aNewTicketID;
     }
 
     /**
-     * Load all existing ticket IDs from the TicketIDs.txt file.
+     * Loads all existing ticket IDs from the TicketIDs file into a set.
+     * <p>
+     * Valid ticket IDs are added to a set to ensure they are unique.
+     * Any invalid entries in the file (Ex. non-numeric values) are skipped.
+     * </p>
+     *
+     * @return A set of unique ticket IDs already store in the file.
      */
     private Set<Integer> loadExistingTicketIDs() {
-        Set<Integer> existingIDs = new HashSet<>();
+        // Create a HashSet to store unique ticket IDs.
+        // HashSet ensures no duplicate IDs are added by adding unique hash code for the element.
+        // HashSet will check if the hash code for an element already exists. If it exists it won't be added.
+        // Won't be ordered, but an order is not needed in this situation.
+        Set<Integer> aExistingIDs = new HashSet<>();
 
-        // File path to the TicketIDs.txt in the data folder
-        File file = new File("data/TicketIDs");
-        System.out.println("File exists: " + file.exists());
-        System.out.println("Absolute path: " + file.getAbsolutePath());
+        // File path to the TicketIDs in the data folder
+        File aFile = new File("SystemDesignOOP2/SystemDesignOOP2/data/TicketIDs");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
+        try (BufferedReader aReader = new BufferedReader(new FileReader(aFile))) {
+            String aLine; // Variable to hold each line read from the file.
+
+            // Reads the file line by line until end of file.
+            while ((aLine = aReader.readLine()) != null) {
                 try {
-                    existingIDs.add(Integer.parseInt(line.trim())); // Store IDs as integers
+                    // Parse each line as an integer and add it to the set.
+                    aExistingIDs.add(Integer.parseInt(aLine.trim()));
                 } catch (NumberFormatException e) {
                     // Handle invalid IDs (skip them)
                     continue;
@@ -183,23 +209,25 @@ public class ClientViewController extends AlertHelper {
             System.out.println("Error reading ticket IDs from file: " + e.getMessage());
         }
 
-        return existingIDs;
+        return aExistingIDs;
     }
 
     /**
-     * Store the generated ticket ID into a text file in the data folder.
+     * Stores a new ticket ID in the TicketIDs file.
+     * <p></p>
+     * Appends (Add new data to end of file without overwriting existing content)
+     * the new ticket ID to the file for future use.
+     *
+     * @param pTicketID the ticket ID to be stored.
      */
-    private void storeTicketID(int ticketID) {
-        // File path to the TicketIDs.txt in the data folder
-        File file = new File("data/TicketIDs");
-        System.out.println("File exists: " + file.exists());
-        System.out.println("Absolute path: " + file.getAbsolutePath());
+    private void storeTicketID(int pTicketID) {
+        // File path to the TicketIDs in the data folder
+        File aFile = new File("SystemDesignOOP2/SystemDesignOOP2/data/TicketIDs");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write(ticketID + "\n"); // Append the new ID to the file
+        try (BufferedWriter aWriter = new BufferedWriter(new FileWriter(aFile, true))) {
+            aWriter.write(pTicketID + "\n"); // Append the new ID to the file
         } catch (IOException e) {
             System.out.println("Error writing ticket ID to file: " + e.getMessage());
         }
     }
-
 }
